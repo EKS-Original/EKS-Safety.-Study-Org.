@@ -227,7 +227,7 @@
     </footer>
 
     <script>
-        // High-Quality Data Array (Add your PDF contents here following this format)
+        // High-Quality Data Array (Part 1 and Part 2 combined)
         const safetyData = [
             // --- CHAPTER 1: GENERAL SAFETY ---
             { category: "1. General Safety", q: "အလုပ်မစခင် အရေးကြီးဆုံး လုပ်ဆောင်ရမည့် အခြေခံစည်းမျဉ်း (Golden Rule) ကဘာလဲ?", a: "မည်သည့် Electrical Circuit တွင်မဆို အလုပ်မစတင်မီ Circuit ကို Power Off (De-energize) လုပ်ရပါမည်။ ထို့နောက် Lockout/Tagout (LOTO) ပြုလုပ်ပြီး၊ Test pen သို့မဟုတ် Multimeter (Proving Unit) ဖြင့် မီးသေချာပြတ်တောက်ကြောင်း အမြဲတမ်း စစ်ဆေးရပါမည်။" },
@@ -252,7 +252,8 @@
 
             // --- CHAPTER 6: EMERGENCY & FIRST AID ---
             { category: "6. Emergency Response", q: "လူတစ်ဦး ဓာတ်လိုက်နေပါက ပထမဆုံး အရေးပေါ် လုပ်ဆောင်ရမည့်အဆင့်များ", a: "၁။ ဓာတ်လိုက်နေသူကို လက်ဗလာဖြင့် လုံးဝ မကိုင်ပါနှင့်။<br>၂။ Main Breaker / Switch ကို ချက်ချင်း ပိတ်ပါ။<br>၃။ မီးဖြတ်၍ မရပါက သစ်သားခြောက်၊ PVC ပိုက်၊ ရာဘာ ကဲ့သို့ လျှပ်ကာပစ္စည်းဖြင့် တွန်းဖယ်ပါ။<br>၄။ လူကို ဖယ်ရှားပြီးပါက အသက်ရှူ/နှလုံးခုန် စစ်ဆေးပြီး လိုအပ်ပါက CPR ချက်ချင်းလုပ်ပါ။ လူနာတင်ယာဉ်ခေါ်ပါ။" },
-            { category: "6. Emergency Response", q: "Electrical Fire (လျှပ်စစ်မီးလောင်မှု) ဖြစ်ပါက မည်သည့် မီးသတ်ဆေးဘူးကို သုံးရမလဲ?", a: "ရေ (Water) ကို လုံးဝ အသုံးမပြုရပါ။ Class C (Electrical Fire) အတွက် ရည်ရွယ်ထားသော CO2 (Carbon Dioxide) သို့မဟုတ် Dry Chemical Powder (DCP) မီးသတ်ဆေးဘူးများကိုသာ အသုံးပြုရပါမည်။" }
+            { category: "6. Emergency Response", q: "Electrical Fire (လျှပ်စစ်မီးလောင်မှု) ဖြစ်ပါက မည်သည့် မီးသတ်ဆေးဘူးကို သုံးရမလဲ?", a: "ရေ (Water) ကို လုံးဝ အသုံးမပြုရပါ။ Class C (Electrical Fire) အတွက် ရည်ရွယ်ထားသော CO2 (Carbon Dioxide) သို့မဟုတ် Dry Chemical Powder (DCP) မီးသတ်ဆေးဘူးများကိုသာ အသုံးပြုရပါမည်။" },
+
             // --- CHAPTER 7: HIGH VOLTAGE (HV) SAFETY ---
             { category: "7. High Voltage Safety", q: "High Voltage (HV) ပိုင်းတွင် အလုပ်လုပ်ရာတွင် လိုက်နာရမည့် အခြေခံစည်းမျဉ်း (PTW)", a: "HV (ဥပမာ - 11kV, 33kV) တွင် အလုပ်လုပ်မည်ဆိုပါက 'Permit to Work' (PTW) စနစ်ကို မဖြစ်မနေ အသုံးပြုရမည်။ Switching လုပ်မည့်သူ၊ မြေချ (Earthing) ပြုလုပ်မည့်သူ နှင့် ကြီးကြပ်သူ (Supervisor) တို့ အဆင့်ဆင့် စစ်ဆေးလက်မှတ်ရေးထိုးပြီးမှသာ အလုပ်စတင်ရမည်။" },
             { category: "7. High Voltage Safety", q: "HV တွင် Discharge လုပ်ခြင်း (Earth ချခြင်း) ဘာကြောင့် အရေးကြီးသနည်း?", a: "HV လိုင်းများနှင့် Cable များသည် Capacitive Effect ကြောင့် မီးဖြတ်ထားသော်လည်း ဓာတ်အား (Residual Charge) ကျန်ရှိနေတတ်သည်။ ထို့ကြောင့် အလုပ်မစမီ Discharge Rod အသုံးပြု၍ ကျန်ရှိနေသော ဓာတ်အားများကို မြေကြီးထဲသို့ မဖြစ်မနေ Discharge (Earth ချ) လုပ်ရမည်။" },
@@ -284,7 +285,6 @@
 
         // Dynamically Generate Category Dropdown Options
         function populateCategories() {
-            // Get unique categories from the data array
             const uniqueCategories = [...new Set(safetyData.map(item => item.category))];
             
             uniqueCategories.forEach(category => {
@@ -297,7 +297,7 @@
 
         // Render Data Function
         function renderQA(data) {
-            container.innerHTML = ''; // Clear current
+            container.innerHTML = ''; 
             
             if (data.length === 0) {
                 container.innerHTML = '<div class="no-result">ရှာဖွေမှုရလဒ် မတွေ့ရှိပါ။ တခြားစကားလုံးဖြင့် ထပ်မံရှာဖွေကြည့်ပါ။</div>';
@@ -331,7 +331,6 @@
             const items = document.querySelectorAll('.qa-item');
             const currentItem = items[index];
             
-            // Close all items (Optional: If you want only one open at a time)
             items.forEach((item, i) => {
                 if (i !== index) {
                     item.classList.remove('active');
@@ -340,24 +339,20 @@
                 }
             });
 
-            // Toggle the clicked item
             currentItem.classList.toggle('active');
             const icon = currentItem.querySelector('.toggle-icon');
             if (currentItem.classList.contains('active')) {
-                icon.textContent = '+'; // CSS handles the rotation to look like an 'X' or '-'
+                icon.textContent = '+'; 
             }
         };
 
-        // Advanced Filter Logic (Handles both Search and Dropdown)
+        // Advanced Filter Logic
         function applyFilters() {
             const searchQuery = searchInput.value.toLowerCase();
             const selectedCategory = categoryFilter.value;
 
             const filteredData = safetyData.filter(item => {
-                // Match Category
                 const matchesCategory = selectedCategory === "All" || item.category === selectedCategory;
-                
-                // Match Search Text (Search in Question, Answer, and Category)
                 const matchesSearch = item.q.toLowerCase().includes(searchQuery) || 
                                       item.a.toLowerCase().includes(searchQuery) || 
                                       item.category.toLowerCase().includes(searchQuery);
