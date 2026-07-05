@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EKS - Complete Electrical Safety Regulations</title>
     <style>
-        /* Premium EKS Theme Variables */
         :root {
             --primary-bg: #0b1120;
             --card-bg: #1e293b;
@@ -26,7 +25,6 @@
             line-height: 1.7;
         }
 
-        /* Header Styling */
         header {
             background: linear-gradient(to bottom, #0f172a, #0b1120);
             padding: 3rem 1rem;
@@ -55,54 +53,45 @@
             padding: 0 1.5rem;
         }
 
-        /* Filter Section (Search & Dropdown) */
+        /* Filter Section (Dropdown Only) */
         .filter-section {
             display: flex;
-            gap: 1rem;
+            justify-content: center;
             margin-bottom: 2.5rem;
-            flex-wrap: wrap;
-        }
-
-        .search-box, .category-select {
-            padding: 1rem 1.2rem;
-            font-size: 1rem;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            background-color: var(--card-bg);
-            color: var(--text-main);
-            outline: none;
-            transition: all 0.3s ease;
-        }
-
-        .search-box {
-            flex: 2;
-            min-width: 250px;
         }
 
         .category-select {
-            flex: 1;
-            min-width: 200px;
+            width: 100%;
+            max-width: 400px;
+            padding: 1rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background-color: var(--card-bg);
+            color: var(--accent-gold);
+            outline: none;
             cursor: pointer;
             appearance: none;
             background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fbbf24' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
             background-repeat: no-repeat;
-            background-position: right 1rem center;
-            background-size: 1em;
+            background-position: right 1.5rem center;
+            background-size: 1.2em;
+            transition: all 0.3s ease;
         }
 
-        .search-box:focus, .category-select:focus {
+        .category-select:focus, .category-select:hover {
             border-color: var(--accent-gold);
             box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
         }
 
-        /* Statistics */
         .stats {
             margin-bottom: 1.5rem;
             color: var(--text-muted);
             font-size: 0.95rem;
+            text-align: center;
         }
 
-        /* Q&A Accordion Styling */
         .qa-item {
             background-color: var(--card-bg);
             margin-bottom: 1.2rem;
@@ -175,27 +164,12 @@
             transform: rotate(45deg);
         }
 
-        /* Footer */
         footer {
             text-align: center;
             padding: 2rem;
             color: var(--text-muted);
             margin-top: 3rem;
             border-top: 1px solid var(--border-color);
-        }
-        
-        .no-result {
-            text-align: center;
-            padding: 3rem;
-            color: var(--text-muted);
-            font-size: 1.2rem;
-        }
-
-        @media (max-width: 600px) {
-            .filter-section {
-                flex-direction: column;
-            }
-            h1 { font-size: 2rem; }
         }
     </style>
 </head>
@@ -208,18 +182,16 @@
 
     <div class="container">
         <div class="filter-section">
-            <input type="text" id="searchInput" class="search-box" placeholder="အကြောင်းအရာ ရှာဖွေရန်... (ဥပမာ - LOTO, Shock, PPE)">
             <select id="categoryFilter" class="category-select">
-                <option value="All">All Chapters (အခန်းအားလုံး)</option>
+                <option value="All">📚 အခန်းအားလုံးကို ဖတ်မည် (All Chapters)</option>
                 </select>
         </div>
 
         <div class="stats" id="resultStats">
-            Showing all regulations...
+            Loading regulations...
         </div>
 
-        <div id="qa-container">
-            </div>
+        <div id="qa-container"></div>
     </div>
 
     <footer>
@@ -227,59 +199,86 @@
     </footer>
 
     <script>
-        // High-Quality Data Array (Part 1 and Part 2 combined)
         const safetyData = [
             // --- CHAPTER 1: GENERAL SAFETY ---
-            { category: "1. General Safety", q: "အလုပ်မစခင် အရေးကြီးဆုံး လုပ်ဆောင်ရမည့် အခြေခံစည်းမျဉ်း (Golden Rule) ကဘာလဲ?", a: "မည်သည့် Electrical Circuit တွင်မဆို အလုပ်မစတင်မီ Circuit ကို Power Off (De-energize) လုပ်ရပါမည်။ ထို့နောက် Lockout/Tagout (LOTO) ပြုလုပ်ပြီး၊ Test pen သို့မဟုတ် Multimeter (Proving Unit) ဖြင့် မီးသေချာပြတ်တောက်ကြောင်း အမြဲတမ်း စစ်ဆေးရပါမည်။" },
-            { category: "1. General Safety", q: "Live Line (မီးရှင်) တွင် အလုပ်လုပ်ရန် လိုအပ်လာပါက မည်သို့ဆောင်ရွက်ရမည်နည်း?", a: "Live Line အလုပ်များကို ရှောင်ရှားသင့်သော်လည်း မဖြစ်မနေလုပ်ရပါက Qualified Person (ကျွမ်းကျင်သူ) သာ လုပ်ဆောင်ရမည်။ သင့်လျော်သော Class ရှိသည့် Insulated Gloves၊ Arc Flash Suit၊ Insulated Tools နှင့် Rubber Mat တို့ကို မဖြစ်မနေ အသုံးပြုရပါမည်။" },
-            { category: "1. General Safety", q: "စိုစွတ်သော နေရာများ (Wet Locations) တွင် အလုပ်လုပ်ရာတွင် သတိပြုရမည့် အချက်များ", a: "စိုစွတ်သောနေရာများတွင် လျှပ်စစ်ခုခံမှု (Resistance) ကျဆင်းသဖြင့် အန္တရာယ်ပိုများသည်။ GFCI (Ground Fault Circuit Interrupter) သို့မဟုတ် RCBO တပ်ဆင်ထားသော ပလပ်များကိုသာ သုံးရမည်။ လက်နှင့် ဖိနပ်များ ခြောက်သွေ့နေရန် အလွန်အရေးကြီးသည်။" },
+            { category: "1. General Safety", q: "အလုပ်မစခင် အရေးကြီးဆုံး လုပ်ဆောင်ရမည့် အခြေခံစည်းမျဉ်း (Golden Rule) ကဘာလဲ?", a: "မည်သည့် Electrical Circuit တွင်မဆို အလုပ်မစတင်မီ Circuit ကို Power Off (De-energize) လုပ်ရပါမည်။ Lockout/Tagout (LOTO) ပြုလုပ်ပြီး၊ Test pen သို့မဟုတ် Multimeter ဖြင့် မီးသေချာပြတ်တောက်ကြောင်း အမြဲတမ်း စစ်ဆေးရပါမည်။" },
+            { category: "1. General Safety", q: "Live Line (မီးရှင်) တွင် အလုပ်လုပ်ရန် လိုအပ်လာပါက မည်သို့ဆောင်ရွက်ရမည်နည်း?", a: "Live Line အလုပ်များကို တတ်နိုင်သမျှ ရှောင်ရှားရမည်။ မဖြစ်မနေလုပ်ရပါက Qualified Person သာ လုပ်ရမည်ဖြစ်ပြီး သင့်လျော်သော Class ရှိသည့် Insulated Gloves၊ Arc Flash Suit နှင့် Rubber Mat တို့ကို မဖြစ်မနေ အသုံးပြုရပါမည်။" },
+            { category: "1. General Safety", q: "စိုစွတ်သော နေရာများ (Wet Locations) တွင် အလုပ်လုပ်ရာတွင် သတိပြုရမည့် အချက်များ", a: "ရေသည် လျှပ်စစ်စီးကူးမှုကို အားကောင်းစေသဖြင့် အန္တရာယ်ပိုများသည်။ GFCI (Ground Fault Circuit Interrupter) သို့မဟုတ် RCBO တပ်ဆင်ထားသော ပလပ်များကိုသာ သုံးရမည်။" },
+            { category: "1. General Safety", q: "Working Clearance (အလုပ်လုပ်ရန် နေရာလွတ်) သတ်မှတ်ချက်", a: "Electrical Panel များ၊ Switchboard များရှေ့တွင် အနည်းဆုံး ၃ ပေ (36 inches) နေရာလွတ် အမြဲရှိရမည်။ ၎င်းနေရာတွင် ပစ္စည်းများ ပိတ်ဆို့နေခြင်း လုံးဝမရှိစေရ။" },
 
             // --- CHAPTER 2: LOCKOUT / TAGOUT (LOTO) ---
-            { category: "2. LOTO Procedure", q: "LOTO (Lockout/Tagout) ဆိုတာ ဘာလဲ? ဘာကြောင့် လုပ်ရတာလဲ?", a: "LOTO ဆိုသည်မှာ ပြုပြင်ထိန်းသိမ်းမှု လုပ်နေစဉ်အတွင်း တစ်စုံတစ်ယောက်မှ မတော်တဆ ခလုတ်ပြန်ဖွင့်မိခြင်း (Accidental Energization) ကြောင့် အသက်အန္တရာယ် မဖြစ်စေရန် Breaker/Switch များတွင် သော့ခတ်ခြင်း (Lockout) နှင့် သတိပေးစာတန်းချိတ်ဆွဲခြင်း (Tagout) လုပ်ငန်းစဉ်ဖြစ်သည်။" },
-            { category: "2. LOTO Procedure", q: "LOTO သော့ကို မည်သူက ပြန်ဖွင့်ခွင့် (Remove) ရှိသနည်း?", a: "LOTO သော့ကို ခတ်ခဲ့သော သူ (Authorized Person) သာလျှင် ပြန်ဖွင့်ခွင့်ရှိသည်။ အခြားမည်သူမျှ လာရောက်ဖွင့်ခွင့်၊ ဖျက်ဆီးခွင့် မရှိပါ။" },
+            { category: "2. LOTO Procedure", q: "LOTO (Lockout/Tagout) ဆိုတာ ဘာလဲ?", a: "ပြုပြင်ထိန်းသိမ်းမှု လုပ်နေစဉ်အတွင်း တစ်စုံတစ်ယောက်မှ မတော်တဆ ခလုတ်ပြန်ဖွင့်မိခြင်း (Accidental Energization) မဖြစ်စေရန် Breaker တွင် သော့ခတ်ခြင်း (Lockout) နှင့် သတိပေးစာတန်းချိတ်ဆွဲခြင်း (Tagout) လုပ်ငန်းစဉ်ဖြစ်သည်။" },
+            { category: "2. LOTO Procedure", q: "LOTO သော့ကို မည်သူက ပြန်ဖွင့်ခွင့် (Remove) ရှိသနည်း?", a: "LOTO သော့ကို ခတ်ခဲ့သော သူ (Authorized Person) ကိုယ်တိုင်သာလျှင် ပြန်ဖွင့်ခွင့်ရှိသည်။ အခြားမည်သူမျှ လာရောက်ဖွင့်ခွင့်၊ ဖျက်ဆီးခွင့် မရှိပါ။" },
+            { category: "2. LOTO Procedure", q: "Group LOTO (အဖွဲ့လိုက်လုပ်ဆောင်ခြင်း)", a: "လူအများအပြား အလုပ်လုပ်နေပါက လုပ်သားတစ်ဦးချင်းစီသည် မိမိပိုင် LOTO သော့ခလောက်ကို Multiple Lockout Hasp တွင် ခတ်ရမည်။ လူအားလုံး သော့ပြန်ဖြုတ်မှသာ မီးပြန်တင်ခွင့်ရှိသည်။" },
+            { category: "2. LOTO Procedure", q: "Stored Energy ကို ဘယ်လိုရှင်းလင်းမလဲ?", a: "မီးဖြတ်ပြီး LOTO လုပ်ရုံဖြင့် မလုံလောက်ပါ။ Capacitor များ၊ Spring-charged Breaker များတွင် ကျန်ရှိနေသော Stored Energy များကို သေချာစွာ Discharge (မြေချ) ပြုလုပ်ပြီးမှ အလုပ်စရမည်။" },
 
             // --- CHAPTER 3: PPE (Personal Protective Equipment) ---
-            { category: "3. PPE & Tools", q: "Electrical Hazard အတွက် အသုံးပြုရမည့် ဖိနပ် (Safety Shoes) အမျိုးအစား", a: "သံချွန်၊ သံပြားပါသော (Steel-toe) ဖိနပ်များကို မသုံးရပါ။ လျှပ်စစ်မလိုက်နိုင်သော (Non-conductive)၊ EH (Electrical Hazard) Rating ပါဝင်သော ဖိနပ်များကိုသာ ဝတ်ဆင်ရပါမည်။" },
-            { category: "3. PPE & Tools", q: "Insulated Tools (လျှပ်ကာတပ် ကိရိယာများ) ကို အသုံးမပြုမီ ဘာတွေစစ်ဆေးရမလဲ?", a: "Pliers၊ Screwdriver ကဲ့သို့သော Insulated Tool များ၏ အစွပ်များ (Insulation) ပေါက်ပြဲနေခြင်း၊ ကွဲအက်နေခြင်း ရှိမရှိ အသုံးမပြုမီ မျက်စိဖြင့် အမြဲစစ်ဆေး (Visual Inspection) ရမည်။ အနည်းငယ် ပေါက်ပြဲနေပါက အသုံးမပြုရပါ။" },
+            { category: "3. PPE Requirements", q: "Electrical Hazard အတွက် အသုံးပြုရမည့် ဖိနပ် (Safety Shoes)", a: "သံချွန်၊ သံပြားပါသော ဖိနပ်များကို မသုံးရပါ။ လျှပ်စစ်မလိုက်နိုင်သော (Non-conductive)၊ EH (Electrical Hazard) Rating ပါဝင်သော ဖိနပ်များကိုသာ ဝတ်ဆင်ရပါမည်။" },
+            { category: "3. PPE Requirements", q: "Rubber Insulating Gloves (ရာဘာလက်အိတ်) အသုံးပြုခြင်း", a: "Voltage အလိုက် Class သတ်မှတ်ချက် (Class 00 မှ Class 4 အထိ) မှန်ကန်စွာ ရွေးချယ်ရမည်။ အသုံးမပြုမီ လေမှုတ်သွင်း၍ အပေါက်အပြဲ ရှိမရှိ (Air Test) အမြဲလုပ်ရမည်။" },
+            { category: "3. PPE Requirements", q: "Eye and Face Protection (မျက်စိနှင့် မျက်နှာကာကွယ်ရေး)", a: "Arc Flash သို့မဟုတ် အမှုန်အမွှားများ စင်ထွက်လာနိုင်သော နေရာများတွင် Safety Glasses သို့မဟုတ် Arc-rated Face Shield များကို အမြဲတပ်ဆင်ထားရမည်။" },
+            { category: "3. PPE Requirements", q: "လက်ဝတ်ရတနာများ ဝတ်ဆင်ခွင့် ရှိ/မရှိ", a: "လျှပ်စစ်ပိုင်းဆိုင်ရာ အလုပ်များ လုပ်ဆောင်သည့်အခါ လက်စွပ်၊ နာရီ၊ ဆွဲကြိုး ကဲ့သို့သော သတ္တုပစ္စည်း (Metal Jewelry) များကို မတော်တဆ ရှော့မဖြစ်စေရန် လုံးဝ ချွတ်ထားရမည်။" },
 
             // --- CHAPTER 4: EARTHING & BONDING ---
-            { category: "4. Earthing System", q: "Earthing (Grounding) ၏ အဓိက ရည်ရွယ်ချက် (၂) ခု", a: "၁။ စက်ပစ္စည်း ကိုယ်ထည် (Body) သို့ မီးရှော့ဖြစ်ပါက (Fault Current) လူကို ဓာတ်မလိုက်စေဘဲ မြေကြီးထဲသို့ အမြန်ဆုံး စီးဆင်းသွားစေရန်။ <br>၂။ Circuit Breaker (MCB/MCCB) များကို လျင်မြန်စွာ Trip ဖြစ်စေရန် လုံလောက်သော Fault Current ပတ်လမ်း ဖန်တီးပေးရန်။" },
-            { category: "4. Earthing System", q: "Equipotential Bonding ဆိုတာဘာလဲ?", a: "အဆောက်အဦအတွင်းရှိ လျှပ်စစ်စီးကူးနိုင်သော သတ္တုပစ္စည်းများ (ရေပိုက်၊ ဓာတ်ငွေ့ပိုက်၊ သံဘောင်များ) အားလုံးကို ဝါယာကြိုးဖြင့် ချိတ်ဆက်ပြီး Earth Bar သို့ သွယ်တန်းခြင်းဖြစ်သည်။ ၎င်းသည် သတ္တုအစိတ်အပိုင်းများကြား Voltage difference မဖြစ်ပေါ်စေရန် ကာကွယ်ပေးသည်။" },
+            { category: "4. Earthing System", q: "Earthing ၏ အဓိက ရည်ရွယ်ချက်", a: "စက်ပစ္စည်း ကိုယ်ထည် (Body) သို့ မီးရှော့ဖြစ်ပါက (Fault Current) လူကို ဓာတ်မလိုက်စေဘဲ မြေကြီးထဲသို့ စီးဆင်းသွားစေရန်နှင့် Circuit Breaker ကို လျင်မြန်စွာ Trip ဖြစ်စေရန်ဖြစ်သည်။" },
+            { category: "4. Earthing System", q: "Equipotential Bonding ဆိုတာဘာလဲ?", a: "အဆောက်အဦအတွင်းရှိ လျှပ်စစ်စီးကူးနိုင်သော သတ္တုပစ္စည်းများ (ရေပိုက်၊ သံဘောင်များ) အားလုံးကို Earth Bar သို့ သွယ်တန်းခြင်းဖြစ်သည်။ ၎င်းသည် သတ္တုအစိတ်အပိုင်းများကြား Voltage difference မဖြစ်ပေါ်စေရန် ဖြစ်သည်။" },
+            { category: "4. Earthing System", q: "Earth Resistance သတ်မှတ်ချက်", a: "အထွေထွေ အဆောက်အဦများအတွက် Earth Resistance သည် 5 Ohms အောက် ရှိသင့်ပြီး၊ Sensitive Equipment များအတွက် 1 Ohm အောက် ရှိရန် လိုအပ်သည်။" },
+            { category: "4. Earthing System", q: "Earthing ကြိုးအရွယ်အစား (Size) ရွေးချယ်ခြင်း", a: "အခြေခံအားဖြင့် Phase wire သည် 16 sqmm အထိဆိုလျှင် Earth wire ကို Phase wire နှင့် အရွယ်အစားတူ (Same size) သုံးရမည်။ ထို့ထက်ကြီးပါက တွက်ချက်မှု (သို့) Standard Table အတိုင်း ရွေးချယ်ရမည်။" },
 
-            // --- CHAPTER 5: FAULT & TROUBLESHOOTING SAFETY ---
-            { category: "5. Troubleshooting", q: "Multimeter ဖြင့် Voltage တိုင်းရာတွင် သတိပြုရမည့် အချက်များ", a: "Multimeter ၏ Range ကို မှန်ကန်စွာ ရွေးချယ်ပါ။ (ဥပမာ - AC Voltage တိုင်းမည်ဆိုပါက AC V ကိုသာထားပါ)။ Lead ကြိုးများ ပေါက်ပြဲမှုရှိမရှိ စစ်ဆေးပါ။ မတိုင်းမီ မိမိတိုင်းမည့် ပမာဏထက် မြင့်သော Range တွင်ထား၍ စတင်တိုင်းတာပါ။" },
-            { category: "5. Troubleshooting", q: "Panel Board ကြီးများရှေ့တွင် အလုပ်လုပ်ပါက မည်သို့ ရပ်သင့်သနည်း?", a: "Arc Flash အန္တရာယ်မှ ကာကွယ်ရန် Panel တံခါးဖွင့်ရာတွင် သို့မဟုတ် Breaker On/Off ပြုလုပ်ရာတွင် Panel ၏ တည့်တည့် (Front) တွင် မရပ်ဘဲ၊ ဘေးဘက် (Side) သို့ အနည်းငယ် ရှောင်၍ လက်တစ်ဖက်တည်းဖြင့်သာ လှမ်း၍ ပြုလုပ်သင့်သည်။" },
+            // --- CHAPTER 5: TROUBLESHOOTING SAFETY ---
+            { category: "5. Troubleshooting", q: "Multimeter ဖြင့် Voltage တိုင်းရာတွင် သတိပြုရန်", a: "Multimeter ၏ Range ကို မှန်ကန်စွာ ရွေးချယ်ပါ။ Lead ကြိုးများ ပေါက်ပြဲမှုရှိမရှိ စစ်ဆေးပါ။ မတိုင်းမီ မိမိတိုင်းမည့် ပမာဏထက် မြင့်သော Range တွင်ထား၍ စတင်တိုင်းတာပါ။" },
+            { category: "5. Troubleshooting", q: "Panel Board ကြီးများရှေ့တွင် အလုပ်လုပ်ပါက မည်သို့ ရပ်သင့်သနည်း?", a: "Arc Flash အန္တရာယ်မှ ကာကွယ်ရန် Panel တံခါးဖွင့်ရာတွင် သို့မဟုတ် Breaker On/Off ပြုလုပ်ရာတွင် Panel ၏ တည့်တည့်တွင် မရပ်ဘဲ၊ ဘေးဘက်သို့ ရှောင်၍ လက်တစ်ဖက်တည်းဖြင့်သာ လှမ်း၍ ပြုလုပ်သင့်သည်။" },
+            { category: "5. Troubleshooting", q: "Megger Test လုပ်ရာတွင် သတိပြုရန်", a: "Megger Test သည် မြင့်မားသော DC Voltage ကို ထုတ်ပေးသဖြင့် စမ်းသပ်မည့် Circuit တွင် Electronic Card များ၊ VFD များ မပါဝင်ကြောင်း သေချာစေရမည်။ တိုင်းတာပြီးတိုင်း Cable များကို မဖြစ်မနေ Discharge ပြန်လုပ်ရမည်။" },
+            { category: "5. Troubleshooting", q: "Motor Terminal Box ဖွင့်ရာတွင် သတိပြုရန်", a: "Motor သို့ သွားသော Breaker ကို ပိတ်ရုံဖြင့် မလုံလောက်ပါ။ Heater (Space Heater) ပါဝင်သော Motor များတွင် Heater Power ကိုပါ သီးသန့် ဖြတ်တောက်ပြီးမှ Terminal Box ကို ဖွင့်ရမည်။" },
 
-            // --- CHAPTER 6: EMERGENCY & FIRST AID ---
-            { category: "6. Emergency Response", q: "လူတစ်ဦး ဓာတ်လိုက်နေပါက ပထမဆုံး အရေးပေါ် လုပ်ဆောင်ရမည့်အဆင့်များ", a: "၁။ ဓာတ်လိုက်နေသူကို လက်ဗလာဖြင့် လုံးဝ မကိုင်ပါနှင့်။<br>၂။ Main Breaker / Switch ကို ချက်ချင်း ပိတ်ပါ။<br>၃။ မီးဖြတ်၍ မရပါက သစ်သားခြောက်၊ PVC ပိုက်၊ ရာဘာ ကဲ့သို့ လျှပ်ကာပစ္စည်းဖြင့် တွန်းဖယ်ပါ။<br>၄။ လူကို ဖယ်ရှားပြီးပါက အသက်ရှူ/နှလုံးခုန် စစ်ဆေးပြီး လိုအပ်ပါက CPR ချက်ချင်းလုပ်ပါ။ လူနာတင်ယာဉ်ခေါ်ပါ။" },
-            { category: "6. Emergency Response", q: "Electrical Fire (လျှပ်စစ်မီးလောင်မှု) ဖြစ်ပါက မည်သည့် မီးသတ်ဆေးဘူးကို သုံးရမလဲ?", a: "ရေ (Water) ကို လုံးဝ အသုံးမပြုရပါ။ Class C (Electrical Fire) အတွက် ရည်ရွယ်ထားသော CO2 (Carbon Dioxide) သို့မဟုတ် Dry Chemical Powder (DCP) မီးသတ်ဆေးဘူးများကိုသာ အသုံးပြုရပါမည်။" },
+            // --- CHAPTER 6: HIGH VOLTAGE (HV) SAFETY ---
+            { category: "6. HV & Substation", q: "Permit to Work (PTW) စနစ်", a: "HV (11kV, 33kV) တွင် အလုပ်လုပ်မည်ဆိုပါက 'Permit to Work' စနစ်ကို မဖြစ်မနေ အသုံးပြုရမည်။ Switching လုပ်သူ၊ မြေချ (Earthing) ပြုလုပ်သူ နှင့် ကြီးကြပ်သူတို့ အဆင့်ဆင့် လက်မှတ်ရေးထိုးပြီးမှသာ အလုပ်စရမည်။" },
+            { category: "6. HV & Substation", q: "Discharge နှင့် Local Earthing ပြုလုပ်ခြင်း", a: "HV လိုင်းများနှင့် Cable များသည် မီးဖြတ်ထားသော်လည်း Capacitive Charge များ ကျန်ရှိနေတတ်သည်။ ထို့ကြောင့် အလုပ်မစမီ Discharge Rod ဖြင့် မြေချ (Earth ချ) ပြီး၊ အလုပ်လုပ်မည့် နေရာအနီးတွင် Local Earth သေချာစွာ ချိတ်ဆက်ထားရမည်။" },
+            { category: "6. HV & Substation", q: "Substation အတွင်း ဝင်ရောက်ခြင်း", a: "ခွင့်ပြုချက်မရှိဘဲ Substation အတွင်း လုံးဝ (လုံးဝ) မဝင်ရ။ အထက်သို့ ရှည်ထွက်နေသော ပစ္စည်းများ (ဥပမာ - လှေကားရှည်၊ သံပိုက်) များကို ထမ်း၍ သယ်ယူခြင်း မပြုလုပ်ရ။" },
+            { category: "6. HV & Substation", q: "Step Voltage နှင့် Touch Voltage အန္တရာယ်", a: "HV Fault ဖြစ်နေချိန်တွင် မြေပြင်ပေါ်၌ Voltage Gradient ဖြစ်ပေါ်နိုင်သဖြင့် မြေပြင်သို့ ကြိုးပြတ်ကျနေသည်ကို တွေ့ပါက အနည်းဆုံး 10 မီတာ အကွာမှနေ၍ ရှောင်ရှားရမည်။ ခြေလှမ်းကျဲကျဲ လျှောက်ခြင်း မပြုလုပ်ရ။" },
 
-            // --- CHAPTER 7: HIGH VOLTAGE (HV) SAFETY ---
-            { category: "7. High Voltage Safety", q: "High Voltage (HV) ပိုင်းတွင် အလုပ်လုပ်ရာတွင် လိုက်နာရမည့် အခြေခံစည်းမျဉ်း (PTW)", a: "HV (ဥပမာ - 11kV, 33kV) တွင် အလုပ်လုပ်မည်ဆိုပါက 'Permit to Work' (PTW) စနစ်ကို မဖြစ်မနေ အသုံးပြုရမည်။ Switching လုပ်မည့်သူ၊ မြေချ (Earthing) ပြုလုပ်မည့်သူ နှင့် ကြီးကြပ်သူ (Supervisor) တို့ အဆင့်ဆင့် စစ်ဆေးလက်မှတ်ရေးထိုးပြီးမှသာ အလုပ်စတင်ရမည်။" },
-            { category: "7. High Voltage Safety", q: "HV တွင် Discharge လုပ်ခြင်း (Earth ချခြင်း) ဘာကြောင့် အရေးကြီးသနည်း?", a: "HV လိုင်းများနှင့် Cable များသည် Capacitive Effect ကြောင့် မီးဖြတ်ထားသော်လည်း ဓာတ်အား (Residual Charge) ကျန်ရှိနေတတ်သည်။ ထို့ကြောင့် အလုပ်မစမီ Discharge Rod အသုံးပြု၍ ကျန်ရှိနေသော ဓာတ်အားများကို မြေကြီးထဲသို့ မဖြစ်မနေ Discharge (Earth ချ) လုပ်ရမည်။" },
+            // --- CHAPTER 7: ARC FLASH HAZARD ---
+            { category: "7. Arc Flash Protection", q: "Arc Flash ဆိုတာ ဘာလဲ?", a: "Arc Flash ဆိုသည်မှာ Phase to Phase (သို့) Phase to Ground ရှော့ဖြစ်ရာမှ ထွက်ပေါ်လာသော ပြင်းထန်သည့် လျှပ်စစ်မီးတောက်နှင့် ပေါက်ကွဲမှုဖြစ်သည်။ အပူချိန်သည် နေ၏ မျက်နှာပြင်ထက် ပိုပူနိုင်သည်။" },
+            { category: "7. Arc Flash Protection", q: "Arc Flash Boundary သတ်မှတ်ချက်", a: "Arc Flash ဖြစ်ပေါ်နိုင်သော အကွာအဝေး (Boundary) ကို တွက်ချက်ထားရမည်။ အဆိုပါ Boundary အတွင်း ဝင်ရောက်ပါက လိုအပ်သော ATPV Rating ရှိသည့် Arc Flash Suit ကို မဖြစ်မနေ ဝတ်ဆင်ရမည်။" },
+            { category: "7. Arc Flash Protection", q: "Cotton vs Synthetic Clothing", a: "လျှပ်စစ်အလုပ် လုပ်သူများသည် နိုင်လွန် (Nylon) သို့မဟုတ် Polyester ပါဝင်သော အဝတ်အစားများကို လုံးဝ မဝတ်ဆင်ရ။ Arc Flash ဖြစ်ပါက အရေပြားပေါ်တွင် အရည်ပျော်ကပ်သွားနိုင်သည်။ 100% ချည်သား (Cotton) ကိုသာ ဝတ်ဆင်ရမည်။" },
 
-            // --- CHAPTER 8: ARC FLASH HAZARD ---
-            { category: "8. Arc Flash Protection", q: "Arc Flash ဆိုတာ ဘာလဲ? ဘယ်လို ကာကွယ်မလဲ?", a: "Arc Flash ဆိုသည်မှာ Phase to Phase သို့မဟုတ် Phase to Ground ရှော့ဖြစ်ရာမှ ထွက်ပေါ်လာသော ပြင်းထန်သည့် လျှပ်စစ်မီးတောက်နှင့် ပေါက်ကွဲမှုဖြစ်သည်။ ၎င်းကို ကာကွယ်ရန် လိုအပ်သော ATPV (Arc Thermal Performance Value) Rating ရှိသည့် Arc Flash Suit၊ Face Shield နှင့် သားရေလက်အိတ်များကို ဝတ်ဆင်ရမည်။" },
-            { category: "8. Arc Flash Protection", q: "Arc Blast ၏ အန္တရာယ်များ", a: "Arc Flash ကြောင့် ထွက်ပေါ်လာသော အပူချိန်သည် နေ၏ မျက်နှာပြင်ထက် ပိုပူနိုင်ပြီး၊ Arc Blast (ပေါက်ကွဲမှု) ကြောင့် အသံကျယ်လောင်ခြင်း၊ ကြေးနီရည်များ ပန်းထွက်ခြင်းနှင့် အရာဝတ္ထုများ လွင့်စင်လာခြင်းတို့ ဖြစ်နိုင်သဖြင့် သတ်မှတ်ထားသော Arc Flash Boundary ပြင်ပမှသာ နေထိုင်ရမည်။" },
+            // --- CHAPTER 8: CABLES & WIRING ---
+            { category: "8. Cables & Wiring", q: "Cable ကြိုးများ သွယ်တန်းရာတွင် ရှောင်ကြဉ်ရန်", a: "Cable များကို ချွန်ထက်သော အနားစွန်းများ၊ အပူချိန်လွန်ကဲသော နေရာများနှင့် တိုက်ရိုက် မသွယ်တန်းရ။ မဖြစ်မနေ သွယ်တန်းရပါက Cable Tray, Conduit (သို့) Mechanical Protection အသုံးပြုရမည်။" },
+            { category: "8. Cables & Wiring", q: "Underground Cable တူးဖော်ခြင်း", a: "မြေမတူးမီ Cable Detector ဖြင့် ကြိုးရှိ/မရှိ ကြိုတင်စစ်ဆေးရမည်။ တူးဖော်စဉ်အတွင်း စက်ယန္တရားများ အစား လက်သုံးကိရိယာများကိုသာ သတိထား၍ အသုံးပြုသင့်သည်။" },
+            { category: "8. Cables & Wiring", q: "Joint ပြုလုပ်ရာတွင် သတိပြုရန်", a: "Cable Joint များသည် လျှပ်စစ်ပတ်လမ်း၏ အားအနည်းဆုံး အစိတ်အပိုင်းဖြစ်သည်။ Joint များကို သင့်လျော်သော Gland, Lug နှင့် Insulation Tape / Heat Shrink Tube များဖြင့် စနစ်တကျ ပြုလုပ်ရမည်။ ရေဝင်နိုင်သော နေရာများတွင် Resin Joint သုံးရမည်။" },
+            { category: "8. Cables & Wiring", q: "Color Coding အရေးကြီးပုံ", a: "ကြိုးများ၏ အရောင်ခွဲခြားမှု (Phase, Neutral, Earth) သည် မှန်ကန်တိကျရမည်။ မှားယွင်းစွာ ချိတ်ဆက်မိပါက စက်ပစ္စည်း ပျက်စီးရုံသာမက လူကိုပါ အသက်အန္တရာယ် ဖြစ်စေနိုင်သည်။" },
 
-            // --- CHAPTER 9: CABLE & WIRING SAFETY ---
-            { category: "9. Cable Safety", q: "Cable ကြိုးများ သွယ်တန်းရာတွင် (Cable Routing) ရှောင်ကြဉ်ရမည့် အချက်များ", a: "Cable ကြိုးများကို ချွန်ထက်သော အနားစွန်းများ၊ အပူချိန်လွန်ကဲသော နေရာများနှင့် ဓာတုပစ္စည်းများ ရှိသောနေရာများတွင် တိုက်ရိုက် မသွယ်တန်းရပါ။ မဖြစ်မနေ သွယ်တန်းရပါက Cable Tray, Conduit သို့မဟုတ် သင့်လျော်သော အကာအကွယ် (Mechanical Protection) အသုံးပြုရမည်။" },
-            { category: "9. Cable Safety", q: "Underground Cable (မြေအောက်ကြိုး) တူးဖော်ရာတွင် သတိပြုရန်", a: "မြေမတူးမီ Cable Detector (သို့) မြေအောက်လမ်းကြောင်း မြေပုံကို အသုံးပြု၍ ကြိုးရှိ/မရှိ ကြိုတင်စစ်ဆေးရမည်။ တူးဖော်စဉ်အတွင်း စက်ယန္တရားများ (Excavators) အစား လက်သုံးကိရိယာများကိုသာ သတိထား၍ အသုံးပြုသင့်သည်။" },
+            // --- CHAPTER 9: PORTABLE TOOLS & EXTENSION CORDS ---
+            { category: "9. Portable Tools", q: "Power Tools များ စစ်ဆေးခြင်း", a: "Power Tools အားလုံး၏ ကြိုးများ ကွဲအက်/ပေါက်ပြဲမှု ရှိမရှိ အသုံးမပြုမီ အမြဲစစ်ဆေးပါ။ Double Insulated (Class II - လေးထောင့်ကွက် နှစ်ထပ်သင်္ကေတ) မပါသော စက်များတွင် Earthing ကြိုး သေချာစွာ ပါဝင်ရမည်။" },
+            { category: "9. Portable Tools", q: "Extension Reels (ကြိုးခွေများ) အသုံးပြုခြင်း", a: "Cable Reel (ကြိုးခွေ) များကို အသုံးပြုပါက အပူလွန်ကဲ၍ မီးလောင်ကျွမ်းမှု (Overheating & Melting) မဖြစ်စေရန် ကြိုးများကို ခွေထားသည့်အတိုင်း မသုံးဘဲ၊ အကုန်လုံး ဖြန့်ချ (Uncoil) ပြီးမှသာ အသုံးပြုရမည်။" },
+            { category: "9. Portable Tools", q: "ခလုတ် (Switch) မပါသော ပလပ်များ", a: "ခလုတ်မပါဘဲ ပလပ်ခေါင်းကို တိုက်ရိုက်ထိုးသွင်းခြင်း၊ ဆွဲဖြုတ်ခြင်းများ မပြုလုပ်ရ။ အမြဲတမ်း Socket ရှိ ခလုတ်ကို ပိတ်ပြီးမှသာ ပလပ်ကို တပ်ခြင်း/ဖြုတ်ခြင်း လုပ်ရမည်။" },
 
-            // --- CHAPTER 10: PORTABLE TOOLS & EQUIPMENT ---
-            { category: "10. Portable Tools", q: "Power Tools များ အသုံးပြုရာတွင် အန္တရာယ်ကင်းရေး", a: "Power Tools အားလုံး၏ ကြိုးများ၊ ပလပ်များ ကွဲအက်/ပေါက်ပြဲမှု ရှိမရှိ အမြဲစစ်ဆေးပါ။ Double Insulated (Class II) မဟုတ်သော စက်ပစ္စည်းများတွင် Earthing ကြိုး သေချာစွာ ပါဝင်ရမည်။ ရေစိုနေသော လက်ဖြင့် Power Tools များကို လုံးဝ မကိုင်ရပါ။" },
-            { category: "10. Portable Tools", q: "Extension Leads (ကြိုးခွေများ) အသုံးပြုခြင်း စည်းမျဉ်း", a: "Cable Reel (ကြိုးခွေ) များကို အသုံးပြုပါက အပူလွန်ကဲ၍ မီးလောင်ကျွမ်းမှု (Overheating & Melting) မဖြစ်စေရန် ကြိုးများကို ခွေထားသည့်အတိုင်း မသုံးဘဲ၊ အကုန်လုံး ဖြန့်ချ (Uncoil) ပြီးမှသာ အသုံးပြုရမည်။" },
+            // --- CHAPTER 10: BATTERY & UPS SYSTEMS ---
+            { category: "10. Battery Safety", q: "Battery အခန်း လေဝင်လေထွက် (Ventilation)", a: "Lead-Acid Battery များ အားသွင်းချိန်တွင် ထွက်သော ဟိုက်ဒရိုဂျင် ဓာတ်ငွေ့သည် ပေါက်ကွဲနိုင်သဖြင့် အခန်းတွင်း လေဝင်လေထွက် ကောင်းမွန်ရန် Exhaust Fan များ တပ်ဆင်ထားရမည်။" },
+            { category: "10. Battery Safety", q: "Battery များကို ကိုင်တွယ်ခြင်း", a: "Battery Acid များ လွင့်စဉ်ပါက ထိခိုက်နိုင်သဖြင့် Chemical Resistant Gloves နှင့် Goggles များကို အသုံးပြုရမည်။ Terminal များကို မတော်တဆ ရှော့မဖြစ်စေရန် Insulated Tools များကိုသာ သုံးပါ။" },
+            { category: "10. Battery Safety", q: "Series ချိတ်ဆက်ထားသော Battery များ", a: "Battery များကို Series ချိတ်ထားပါက စုစုပေါင်း Voltage သည် အန္တရာယ်ရှိသော ပမာဏ (ဥပမာ 120V, 240V DC) သို့ ရောက်ရှိနိုင်သဖြင့် DC Voltage အန္တရာယ်ကို အထူးဂရုပြုရမည်။" },
 
-            // --- CHAPTER 11: BATTERY SYSTEM SAFETY ---
-            { category: "11. Battery Safety", q: "Battery Bank များရှိသော အခန်းတွင် လိုက်နာရမည့် စည်းကမ်းများ", a: "Lead-Acid Battery များမှ ထွက်သော ဟိုက်ဒရိုဂျင် ဓာတ်ငွေ့သည် ပေါက်ကွဲနိုင်သဖြင့် အခန်းတွင်း လေဝင်လေထွက် (Ventilation) ကောင်းမွန်ရမည်။ မီးပွားထွက်စေသော အရာများ၊ ဆေးလိပ်သောက်ခြင်းများကို လုံးဝ တားမြစ်ရမည်။" },
-            { category: "11. Battery Safety", q: "Battery များကို ကိုင်တွယ်ရာတွင် သတိပြုရန်", a: "Battery Acid များ လွင့်စဉ်ပါက မျက်စိနှင့် အရေပြားကို ထိခိုက်နိုင်သဖြင့် Chemical Resistant Gloves နှင့် Goggles များကို အသုံးပြုရမည်။ Terminal များကို Metal Tools များဖြင့် မတော်တဆ ရှော့မဖြစ်စေရန် Insulated Tools များကိုသာ သုံးပါ။" },
+            // --- CHAPTER 11: SOLAR PV SAFETY ---
+            { category: "11. Solar PV Safety", q: "Solar Panel များ၏ ထူးခြားသော အန္တရာယ်", a: "Solar Panel များသည် နေရောင်ရနေသရွေ့ DC Voltage အမြဲထုတ်ပေးနေမည် ဖြစ်သည်။ DC Isolator ကို ပိတ်ထားသော်လည်း Panel မှ Isolator အထိ ကြိုးများသည် 'Live' (မီးရှင်) ဖြစ်နေကြောင်း အမြဲသတိပြုရမည်။" },
+            { category: "11. Solar PV Safety", q: "Inverter Isolation Procedure", a: "Inverter ကို ပြင်ဆင်မည်ဆိုပါက AC Breaker ကို အရင်ပိတ်ပါ။ ထို့နောက်မှ DC Isolator ကို ပိတ်ပါ။ အထဲရှိ Capacitor များ Discharge ဖြစ်ရန် အနည်းဆုံး ၅ မိနစ်ခန့် စောင့်ပြီးမှသာ အလုပ်စတင်ပါ။" },
+            { category: "11. Solar PV Safety", q: "MC4 Connector များ ဖြုတ်ခြင်း", a: "နေပူနေချိန် (သို့) Load အလုပ်လုပ်နေချိန်တွင် MC4 Connector များကို တိုက်ရိုက် မဖြုတ်ရပါ။ DC Arc ဖြစ်ပေါ်ပြီး မီးလောင်နိုင်ပါသည်။" },
 
-            // --- CHAPTER 12: SOLAR PV SAFETY ---
-            { category: "12. Solar PV Safety", q: "Solar Panel များ တပ်ဆင်ရာတွင် ထူးခြားသော အန္တရာယ်", a: "Solar Panel များသည် နေရောင်ရနေသရွေ့ DC Voltage အမြဲထုတ်ပေးနေမည် ဖြစ်သည်။ မီးဖြတ်ထားသည်ဟု ယူဆ၍ မရပါ။ ထို့ကြောင့် DC Isolator ကို ပိတ်ထားသော်လည်း Panel မှ Isolator အထိ ကြိုးများသည် 'Live' ဖြစ်နေကြောင်း အမြဲသတိပြုရမည်။" }
+            // --- CHAPTER 12: FIRE SAFETY ---
+            { category: "12. Fire Safety", q: "Electrical Fire (လျှပ်စစ်မီးလောင်မှု) ဖြစ်ပါက", a: "ရေ (Water) ကို လုံးဝ အသုံးမပြုရပါ။ Class C (Electrical Fire) အတွက် ရည်ရွယ်ထားသော CO2 သို့မဟုတ် Dry Powder မီးသတ်ဆေးဘူးများကိုသာ အသုံးပြုရပါမည်။" },
+            { category: "12. Fire Safety", q: "ပထမဆုံး လုပ်ရမည့်အဆင့်", a: "လျှပ်စစ်မီးလောင်မှု ဖြစ်ပါက မီးကို အရင်မငြှိမ်းဘဲ၊ မီးလောင်နေသော အပိုင်း၏ Main Breaker သို့မဟုတ် Power Supply ကို အရင်ဆုံး ဖြတ်တောက်ရန် ကြိုးစားရမည်။" },
+            { category: "12. Fire Safety", q: "Overloading အန္တရာယ်", a: "Extension Socket တစ်ခုတည်းတွင် လက်ပ်တော့၊ ရေနွေးအိုး၊ မိုက်ခရိုဝေ့ဖ် စသည်တို့ကို ပြိုင်တူထိုးခြင်း (Overloading) သည် မီးလောင်မှု၏ အဓိက တရားခံဖြစ်သည်။" },
+
+            // --- CHAPTER 13: CONFINED SPACE & HEIGHTS ---
+            { category: "13. Special Locations", q: "Confined Space (ကျဉ်းမြောင်းသော နေရာများ) တွင် လျှပ်စစ်သုံးစွဲခြင်း", a: "Boiler, Tank ကဲ့သို့သော သတ္တုအုံများအတွင်း အလင်းရောင်နှင့် Power Tool များ သုံးမည်ဆိုပါက Extra Low Voltage (ဥပမာ - 24V or 110V Center-tapped) စနစ်ကိုသာ အသုံးပြုရမည်။" },
+            { category: "13. Special Locations", q: "အမြင့်တွင် လျှပ်စစ်အလုပ် လုပ်ခြင်း", a: "Ladder (လှေကား) အသုံးပြုပါက သတ္တုလှေကား (Aluminum Ladder) များကို လုံးဝ မသုံးရပါ။ လျှပ်စစ်မလိုက်နိုင်သော Fiberglass သို့မဟုတ် သစ်သားလှေကားများကိုသာ အသုံးပြုရပါမည်။" },
+            { category: "13. Special Locations", q: "Drop Hazard (ပစ္စည်းပြုတ်ကျခြင်း)", a: "အမြင့်ရှိ Cable Tray များ၊ Panel များတွင် အလုပ်လုပ်ပါက မိမိအသုံးပြုသော ကိရိယာများ (Tools) အောက်သို့ ပြုတ်မကျစေရန် Tool Lanyard များဖြင့် ချည်နှောင်ထားရမည်။" },
+
+            // --- CHAPTER 14: EMERGENCY RESPONSE ---
+            { category: "14. Emergency & First Aid", q: "လူတစ်ဦး ဓာတ်လိုက်နေပါက ပထမဆုံး အရေးပေါ် လုပ်ဆောင်ရမည့်အဆင့်", a: "၁။ ဓာတ်လိုက်နေသူကို လက်ဖြင့် လုံးဝ မကိုင်ပါနှင့်။ 2။ Main Breaker ကို ချက်ချင်း ပိတ်ပါ။ ၃။ မီးဖြတ်၍ မရပါက သစ်သားခြောက်၊ PVC ပိုက် ဖြင့် တွန်းဖယ်ပါ။" },
+            { category: "14. Emergency & First Aid", q: "လူနာကို ကယ်ဆယ်ပြီးပါက လုပ်ဆောင်ရန်", a: "အသက်ရှူ/နှလုံးခုန် စစ်ဆေးပါ။ မရှူတော့ပါက CPR (နှလုံးဖိနှိပ်ခြင်းနှင့် လေမှုတ်သွင်းခြင်း) ကို ချက်ချင်းလုပ်ပါ။ လူနာတင်ယာဉ် ချက်ချင်းခေါ်ပါ။" },
+            { category: "14. Emergency & First Aid", q: "Electrical Burns (လျှပ်စစ်ကြောင့် လောင်ကျွမ်းခြင်း)", a: "ဒဏ်ရာကို ရေအေးဖြင့် အနည်းဆုံး ၁၀ မိနစ်ခန့် ဆေးကြောပါ။ ရေခဲ တိုက်ရိုက် မကပ်ရ။ ဆီ၊ သွားတိုက်ဆေး၊ လိမ်းဆေးများကို ဒဏ်ရာပေါ်တွင် လုံးဝ မလိမ်းရ။" }
         ];
 
         const container = document.getElementById('qa-container');
-        const searchInput = document.getElementById('searchInput');
         const categoryFilter = document.getElementById('categoryFilter');
         const resultStats = document.getElementById('resultStats');
 
@@ -290,7 +289,7 @@
             uniqueCategories.forEach(category => {
                 const option = document.createElement('option');
                 option.value = category;
-                option.textContent = category;
+                option.textContent = category; // Removed static translation part for clean look
                 categoryFilter.appendChild(option);
             });
         }
@@ -300,12 +299,12 @@
             container.innerHTML = ''; 
             
             if (data.length === 0) {
-                container.innerHTML = '<div class="no-result">ရှာဖွေမှုရလဒ် မတွေ့ရှိပါ။ တခြားစကားလုံးဖြင့် ထပ်မံရှာဖွေကြည့်ပါ။</div>';
+                container.innerHTML = '<div style="text-align:center; padding: 2rem; color: var(--text-muted);">No data available.</div>';
                 resultStats.textContent = "0 regulations found.";
                 return;
             }
 
-            resultStats.textContent = `Showing ${data.length} regulation${data.length > 1 ? 's' : ''}...`;
+            resultStats.textContent = `Showing ${data.length} safety regulations...`;
 
             data.forEach((item, index) => {
                 const qaDiv = document.createElement('div');
@@ -313,7 +312,7 @@
                 qaDiv.innerHTML = `
                     <div class="question" onclick="toggleAnswer(${index})">
                         <div class="question-content">
-                            <span class="category-tag">${item.category}</span>
+                            <span class="category-tag">${item.category.split('.')[1] || item.category}</span>
                             <span>${item.q}</span>
                         </div>
                         <span class="toggle-icon" id="icon-${index}">+</span>
@@ -331,6 +330,7 @@
             const items = document.querySelectorAll('.qa-item');
             const currentItem = items[index];
             
+            // Optional: Close others
             items.forEach((item, i) => {
                 if (i !== index) {
                     item.classList.remove('active');
@@ -342,29 +342,24 @@
             currentItem.classList.toggle('active');
             const icon = currentItem.querySelector('.toggle-icon');
             if (currentItem.classList.contains('active')) {
-                icon.textContent = '+'; 
+                icon.textContent = '−'; 
+            } else {
+                icon.textContent = '+';
             }
         };
 
-        // Advanced Filter Logic
+        // Filter Logic (Dropdown Only)
         function applyFilters() {
-            const searchQuery = searchInput.value.toLowerCase();
             const selectedCategory = categoryFilter.value;
 
             const filteredData = safetyData.filter(item => {
-                const matchesCategory = selectedCategory === "All" || item.category === selectedCategory;
-                const matchesSearch = item.q.toLowerCase().includes(searchQuery) || 
-                                      item.a.toLowerCase().includes(searchQuery) || 
-                                      item.category.toLowerCase().includes(searchQuery);
-
-                return matchesCategory && matchesSearch;
+                return selectedCategory === "All" || item.category === selectedCategory;
             });
 
             renderQA(filteredData);
         }
 
-        // Event Listeners for Filters
-        searchInput.addEventListener('input', applyFilters);
+        // Event Listener for Dropdown
         categoryFilter.addEventListener('change', applyFilters);
 
         // Initialize App
